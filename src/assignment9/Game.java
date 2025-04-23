@@ -5,18 +5,47 @@ import java.awt.event.KeyEvent;
 import edu.princeton.cs.introcs.StdDraw;
 
 public class Game {
+	private Food f1;
+	private Snake s1;
 	
 	public Game() {
 		StdDraw.enableDoubleBuffering();
 		
-		//FIXME - construct new Snake and Food objects
+		Snake s1 = new Snake();
+		Food f1 = new Food();
+		
+		this.f1= f1;
+		this.s1 = s1;
+		
+		
+		
+		
+		
+		
+	}
+	private Food generateRandomFood() {
+		if(Math.random()<0.1) {
+			return new Grape();
+			
+		}else {
+		return new Food();
+		}
 	}
 	
 	public void play() {
-		while (true) { //TODO: Update this condition to check if snake is in bounds
+		while (s1.isInbounds()) { 
 			int dir = getKeypress();
-			//Testing only: you will eventually need to do more work here
-			System.out.println("Keypress: " + dir);
+			s1.changeDirection(dir);
+			s1.move();
+			if(s1.eatFood(f1)) {	
+				f1 = generateRandomFood();
+				
+			}
+			updateDrawing();
+			
+			
+			
+			
 			
 			/*
 			 * 1. Pass direction to your snake
@@ -45,6 +74,16 @@ public class Game {
 	 * Clears the screen, draws the snake and food, pauses, and shows the content
 	 */
 	private void updateDrawing() {
+		StdDraw.clear();
+		f1.draw();
+		s1.draw();
+		StdDraw.pause(50);
+		StdDraw.show();
+		
+		
+		
+		
+		
 		//FIXME
 		
 		/*
